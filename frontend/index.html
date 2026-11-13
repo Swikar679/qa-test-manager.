@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TestFlow | QA Test Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">T</div>
+            <span>TestFlow</span>
+        </div>
+
+        <p class="nav-label">WORKSPACE</p>
+        <a class="nav-link active" href="#dashboard">▦ Dashboard</a>
+        <a class="nav-link" href="#test-cases">▤ Test Cases</a>
+
+        <div class="sidebar-footer">
+            <div class="avatar">QA</div>
+            <div>
+                <strong>QA Workspace</strong>
+                <small>Test Management</small>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">WORKSPACE / OVERVIEW</p>
+                <h1>QA Dashboard</h1>
+            </div>
+            <span class="date-label" id="today"></span>
+        </header>
+
+        <section id="dashboard">
+            <div class="welcome">
+                <div>
+                    <p class="eyebrow light">TEST MANAGEMENT</p>
+                    <h2>Welcome to your testing workspace.</h2>
+                    <p>Organize, track and manage your software test cases.</p>
+                </div>
+                <div class="welcome-symbol">✓</div>
+            </div>
+
+            <div class="stats-grid">
+                <article class="stat-card">
+                    <span class="stat-icon blue">▤</span>
+                    <p>Total test cases</p>
+                    <h2 id="totalCount">0</h2>
+                </article>
+
+                <article class="stat-card">
+                    <span class="stat-icon green">✓</span>
+                    <p>Passed</p>
+                    <h2 id="passedCount">0</h2>
+                </article>
+
+                <article class="stat-card">
+                    <span class="stat-icon red">×</span>
+                    <p>Failed</p>
+                    <h2 id="failedCount">0</h2>
+                </article>
+
+                <article class="stat-card">
+                    <span class="stat-icon orange">◷</span>
+                    <p>Not started</p>
+                    <h2 id="pendingCount">0</h2>
+                </article>
+            </div>
+        </section>
+
+        <section class="workspace" id="test-cases">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">TEST MANAGEMENT</p>
+                    <h2>Test Cases</h2>
+                    <p class="muted">Create and manage your testing scenarios.</p>
+                </div>
+                <button class="primary-button" id="showFormButton">
+                    + New Test Case
+                </button>
+            </div>
+
+            <section class="form-card hidden" id="formCard">
+                <div class="form-heading">
+                    <div>
+                        <h3 id="formTitle">Create a test case</h3>
+                        <p class="muted">Enter the details of your test scenario.</p>
+                    </div>
+                    <button class="close-button" id="closeFormButton" type="button">×</button>
+                </div>
+
+                <form id="testForm">
+                    <div class="form-grid">
+                        <label class="full-width">
+                            Test case title *
+                            <input id="title" type="text"
+                                placeholder="e.g. Verify user login with valid credentials"
+                                required>
+                        </label>
+
+                        <label>
+                            Priority
+                            <select id="priority">
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                                <option value="Low">Low</option>
+                            </select>
+                        </label>
+
+                        <label>
+                            Status
+                            <select id="status">
+                                <option value="Not Started">Not Started</option>
+                                <option value="Passed">Passed</option>
+                                <option value="Failed">Failed</option>
+                            </select>
+                        </label>
+
+                        <label class="full-width">
+                            Description
+                            <textarea id="description" rows="2"
+                                placeholder="What are you testing?"></textarea>
+                        </label>
+
+                        <label class="full-width">
+                            Test steps
+                            <textarea id="steps" rows="3"
+                                placeholder="1. Open the login page&#10;2. Enter valid credentials&#10;3. Click Login"></textarea>
+                        </label>
+
+                        <label class="full-width">
+                            Expected result
+                            <textarea id="expected" rows="2"
+                                placeholder="Describe the expected application behaviour"></textarea>
+                        </label>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="secondary-button"
+                            id="cancelButton">Cancel</button>
+                        <button type="submit" class="primary-button"
+                            id="saveButton">Save Test Case</button>
+                    </div>
+                </form>
+            </section>
+
+            <div class="toolbar">
+                <input id="searchInput" type="search"
+                    placeholder="Search test cases...">
+
+                <select id="statusFilter">
+                    <option value="All">All statuses</option>
+                    <option value="Not Started">Not Started</option>
+                    <option value="Passed">Passed</option>
+                    <option value="Failed">Failed</option>
+                </select>
+
+                <select id="priorityFilter">
+                    <option value="All">All priorities</option>
+                    <option value="High">High priority</option>
+                    <option value="Medium">Medium priority</option>
+                    <option value="Low">Low priority</option>
+                </select>
+            </div>
+
+            <div class="table-card">
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID / TEST CASE</th>
+                                <th>PRIORITY</th>
+                                <th>STATUS</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="testCaseList"></tbody>
+                    </table>
+                </div>
+                <div class="empty-state hidden" id="emptyState">
+                    <div class="empty-icon">▤</div>
+                    <h3>No test cases found</h3>
+                    <p>Create a test case or change your search and filters.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            TestFlow <span>·</span> QA Test Management
+        </footer>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

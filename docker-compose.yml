@@ -1,0 +1,35 @@
+
+services:
+  frontend:
+    build: ./frontend
+    container_name: qa-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend
+    container_name: qa-backend
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - database
+
+  database:
+    image: postgres:17
+    container_name: qa-database
+    environment:
+      POSTGRES_USER: qauser
+      POSTGRES_PASSWORD: qa12345
+      POSTGRES_DB: qadb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+
+volumes:
+  postgres_data:
